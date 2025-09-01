@@ -1,3 +1,13 @@
+<!-- TOC -->
+* [S3 CRUD Methods with AWS CLI](#s3-crud-methods-with-aws-cli)
+  * [**Initial Setup**](#initial-setup)
+  * [**Creating and Listing a Bucket**](#creating-and-listing-a-bucket)
+  * [**Uploading Files (Create & Read)**](#uploading-files-create--read)
+  * [**Downloading and Syncing Files**](#downloading-and-syncing-files)
+  * [**Deleting Files and Buckets (Delete)**](#deleting-files-and-buckets-delete)
+  * [**Extra Notes & Troubleshooting**](#extra-notes--troubleshooting)
+<!-- TOC -->
+
 # S3 CRUD Methods with AWS CLI
 
 This guide outlines the essential CRUD (Create, Read, Update, Delete) operations for Amazon S3 using the AWS Command Line Interface.

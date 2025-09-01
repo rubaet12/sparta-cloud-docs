@@ -1,4 +1,8 @@
-### Intro to IaC (Infrastructure as Code)
+<!-- TOC -->
+  * [Intro to IaC (Infrastructure as Code)](#intro-to-iac-infrastructure-as-code)
+<!-- TOC -->
+
+## Intro to IaC (Infrastructure as Code)
 
 What have we automated?
 
@@ -95,4 +99,4 @@ Why use Terraform for different environments?
 ⦁	Staging
 ⦁	Production
   * easily create larger-scale environment 
-⦁	Across different environments, there is consistency being used also
+⦁	Across different environments, there is consistency being used.

@@ -1,10 +1,19 @@
+
+<!-- TOC -->
+* [Sparta App Deployment](#sparta-app-deployment)
+  * [*Application Instance Setup*](#application-instance-setup)
+  * [*Database Instance Setup*](#database-instance-setup)
+  * [*Final Step*](#final-step)
+* [Sparta App Deployment](#sparta-app-deployment-1)
+  * [**Provisioning Script (app_and_db_provision.sh)**](#provisioning-script-app_and_db_provisionsh)
+<!-- TOC -->
 # Sparta App Deployment
 
 This guide outlines the steps to deploy the Sparta app, including setting up both the application and a separate database instance.
 
 ---
 
-### *Application Instance Setup*
+## *Application Instance Setup*
 
 1.  *Launch a new instance:*
     * *Name:* tech508-YOURNAME-test-sparta-app
@@ -33,7 +42,7 @@ This guide outlines the steps to deploy the Sparta app, including setting up bot
 
 ---
 
-### *Database Instance Setup*
+## *Database Instance Setup*
 
 1.  *Launch a new instance:*
     * *Name:* tech508-yourname-test-sparta-app-dp
@@ -75,7 +84,7 @@ This guide outlines the steps to deploy the Sparta app, including setting up bot
 
 ---
 
-### *Final Step*
+## *Final Step*
 
 * Return to your application instance's Git Bash terminal.
 * Run the seed script to populate the database: node seeds/seed.js
@@ -88,7 +97,7 @@ This document contains a consolidated script for provisioning both the applicati
 
 ---
 
-### **Provisioning Script (app_and_db_provision.sh)**
+## **Provisioning Script (app_and_db_provision.sh)**
 
 This script automates the installation of all necessary software and the cloning of the repository for both the application and the database.
 

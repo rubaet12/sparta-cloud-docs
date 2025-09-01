@@ -1,3 +1,16 @@
+<!-- TOC -->
+* [Ansible on Ubuntu (AWS) – Easy Setup Guide](#ansible-on-ubuntu-aws--easy-setup-guide)
+  * [Step 1: Connect to Your Controller](#step-1-connect-to-your-controller)
+  * [Step 2: Install Ansible](#step-2-install-ansible)
+  * [Step 3: Add Hosts to Inventory](#step-3-add-hosts-to-inventory)
+  * [Step 4: Test the Connection](#step-4-test-the-connection)
+  * [Step 5: Run Commands](#step-5-run-commands)
+  * [Step 6: Create a Playbook](#step-6-create-a-playbook)
+  * [Step 7: Troubleshooting](#step-7-troubleshooting)
+  * [Quick Commands](#quick-commands)
+  * [Done](#done-)
+<!-- TOC -->
+
 # Ansible on Ubuntu (AWS) – Easy Setup Guide
 
 This guide is a simplified version of the steps you followed, making it easy to read and repeat. It covers installing Ansible on an Ubuntu 22.04 AWS EC2 controller, connecting with PEM keys, setting up an inventory, and running basic commands.

@@ -1,6 +1,13 @@
-### AWS EC2 & Auto Scaling Group Setup
 
-#### 1. Launch EC2 Instance
+<!-- TOC -->
+* [AWS EC2 & Auto Scaling Group Setup](#aws-ec2--auto-scaling-group-setup)
+  * [1. Launch EC2 Instance](#1-launch-ec2-instance)
+  * [2. Create Auto Scaling Group (ASG)](#2-create-auto-scaling-group-asg)
+  * [3. Test Load Balancer](#3-test-load-balancer)
+<!-- TOC -->
+# AWS EC2 & Auto Scaling Group Setup
+
+## 1. Launch EC2 Instance
 - **Login to AWS**
 - In **EC2**, click **Launch Instance** and create a new one:
   - **Name**: `tech508-rubaet-for-asg-app-lt`
@@ -22,7 +29,7 @@
 
 ---
 
-#### 2. Create Auto Scaling Group (ASG)
+## 2. Create Auto Scaling Group (ASG)
 - Go to **Auto Scaling Groups** (bottom left)
 - Click **Create Auto Scaling Group**:
   - **Name**: `tech508-rubaet-app-asg`
@@ -54,7 +61,7 @@
 
 ---
 
-#### 3. Test Load Balancer
+## 3. Test Load Balancer
 - Click your ASG name
 - In **Load Balancers** (bottom left), search for `tech508-rubaet-app-asg-lb`
 - Find the **DNS name** of the load balancer

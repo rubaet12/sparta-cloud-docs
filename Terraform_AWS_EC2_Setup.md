@@ -1,3 +1,19 @@
+<!-- TOC -->
+* [Terraform AWS EC2 Setup — Complete Script & Documentation](#terraform-aws-ec2-setup--complete-script--documentation)
+  * [Overview](#overview)
+  * [](#)
+  * [Full Terraform Script](#full-terraform-script)
+  * [](#-1)
+  * [Explanation of Each Section](#explanation-of-each-section)
+  * [1. **Provider Configuration**](#1-provider-configuration)
+  * [2. **Security Group**](#2-security-group)
+  * [3. **EC2 Instance**](#3-ec2-instance)
+  * [4. **Output**](#4-output)
+  * [How to Use](#how-to-use)
+  * [Security Notes](#security-notes)
+  * [Explanation of Each Section](#explanation-of-each-section-1)
+<!-- TOC -->
+
 # Terraform AWS EC2 Setup — Complete Script & Documentation
  
 ## Overview
@@ -83,7 +99,7 @@ output "instance_public_ip" {
  
 ## Explanation of Each Section
  
-### 1. **Provider Configuration**
+## 1. **Provider Configuration**
 ```hcl
 provider "aws" {
   region = "eu-west-1"
@@ -94,7 +110,7 @@ provider "aws" {
  
 ---
  
-### 2. **Security Group**
+## 2. **Security Group**
 ```hcl
 resource "aws_security_group" "allow_ports" { ... }
 ```
@@ -108,7 +124,7 @@ resource "aws_security_group" "allow_ports" { ... }
  
 ---
  
-### 3. **EC2 Instance**
+## 3. **EC2 Instance**
 ```hcl
 resource "aws_instance" "web" { ... }
 ```
@@ -122,7 +138,7 @@ resource "aws_instance" "web" { ... }
  
 ---
  
-### 4. **Output**
+## 4. **Output**
 ```hcl
 output "instance_public_ip" {
   description = "Public IP of the EC2 instance"

@@ -1,3 +1,7 @@
+<!-- TOC -->
+  * [Dashboard](#dashboard)
+<!-- TOC -->
+
 ## Dashboard
  
 - go to your instance

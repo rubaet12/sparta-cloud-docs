@@ -1,10 +1,18 @@
+<!-- TOC -->
+* [Setting Up an SSH Key for GitHub](#setting-up-an-ssh-key-for-github)
+  * [**Step 1: Generate an SSH Key Pair**](#step-1-generate-an-ssh-key-pair)
+  * [**Step 2: Add the Key to GitHub**](#step-2-add-the-key-to-github)
+  * [**Step 3: Start the SSH Agent**](#step-3-start-the-ssh-agent)
+  * [**Step 4: Test Your Connection**](#step-4-test-your-connection)
+<!-- TOC -->
+
 # Setting Up an SSH Key for GitHub
 
 This guide explains how to create and configure an SSH key to securely connect GitHub with your local machine.
 
 ---
 
-### **Step 1: Generate an SSH Key Pair**
+## **Step 1: Generate an SSH Key Pair**
 
 1.  Open **Git Bash**.
 2.  Type `pwd` to check your current directory. This should be your home directory (`~`).
@@ -22,7 +30,7 @@ This guide explains how to create and configure an SSH key to securely connect G
 
 ---
 
-### **Step 2: Add the Key to GitHub**
+## **Step 2: Add the Key to GitHub**
 
 1.  Log in to your GitHub account.
 2.  Navigate to **Settings → SSH and GPG keys**.
@@ -34,14 +42,14 @@ This guide explains how to create and configure an SSH key to securely connect G
 
 ---
 
-### **Step 3: Start the SSH Agent**
+## **Step 3: Start the SSH Agent**
 
 1.  In Git Bash, run `eval "$(ssh-agent -s)"`. This starts the SSH agent in the background.
 2.  Add your SSH key to the agent by typing `ssh-add ~/.ssh/id_rsa`.
 
 ---
 
-### **Step 4: Test Your Connection**
+## **Step 4: Test Your Connection**
 
 1.  Type `ssh -T git@github.com`.
 2.  When prompted to continue, type `yes`.

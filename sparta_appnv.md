@@ -1,6 +1,32 @@
-### The manual to setting up the sparta app via AWS
+<!-- TOC -->
+* [The manual to setting up the sparta app via AWS](#the-manual-to-setting-up-the-sparta-app-via-aws)
+* [Setting Up a Full Web App Using Two AWS EC2 Instances (Frontend + Backend)](#setting-up-a-full-web-app-using-two-aws-ec2-instances-frontend--backend)
+  * [Part 1: Set Up the Frontend Application (Sparta App)](#part-1-set-up-the-frontend-application-sparta-app)
+    * [Step 1: Launch AWS EC2 Instance for Frontend](#step-1-launch-aws-ec2-instance-for-frontend)
+    * [Step 2: Connect to the Frontend VM Using Git Bash](#step-2-connect-to-the-frontend-vm-using-git-bash)
+    * [Step 3: Install Required Software on Frontend VM](#step-3-install-required-software-on-frontend-vm)
+    * [Step 4: Download and Run the App](#step-4-download-and-run-the-app)
+    * [Step 5: Check If the App Works](#step-5-check-if-the-app-works)
+  * [Part 2: Set Up the Backend Database (MongoDB)](#part-2-set-up-the-backend-database-mongodb)
+    * [Step 6: Launch AWS EC2 Instance for MongoDB](#step-6-launch-aws-ec2-instance-for-mongodb)
+    * [Step 7: Connect to MongoDB VM Using Git Bash](#step-7-connect-to-mongodb-vm-using-git-bash)
+    * [Step 8: Install MongoDB on the Database VM](#step-8-install-mongodb-on-the-database-vm)
+    * [Step 9: Allow Remote Access to MongoDB](#step-9-allow-remote-access-to-mongodb)
+  * [Part 3: Link Frontend with Backend](#part-3-link-frontend-with-backend)
+    * [Step 10: Connect the App to the MongoDB Database](#step-10-connect-the-app-to-the-mongodb-database)
+  * [Final Check](#final-check)
+  * [What is a Reverse Proxy?](#what-is-a-reverse-proxy)
+  * [Implement Reverse Proxy (Access App Without :3000)](#implement-reverse-proxy-access-app-without-3000)
+    * [App script](#app-script-)
+    * [Database script](#database-script-)
+    * [How do you run it?](#how-do-you-run-it)
+    * [Test in Your Browser](#3-test-in-your-browser)
+    * [Why This Works](#why-this-works)
+<!-- TOC -->
 
-# Task I: Setting Up a Full Web App Using Two AWS EC2 Instances (Frontend + Backend)
+# The manual to setting up the sparta app via AWS
+
+#  Setting Up a Full Web App Using Two AWS EC2 Instances (Frontend + Backend)
 
 This guide walks you through how to get a simple full-stack app running. The app has two parts:
 1. A **frontend** – what users see when they go to a website
@@ -16,17 +42,19 @@ You will set up **two virtual machines (VMs)** using AWS EC2:
 
 ### Step 1: Launch AWS EC2 Instance for Frontend
 
-Go to [AWS EC2](https://console.aws.amazon.com/ec2) and click **Launch Instance**.
+Go to aws, log in and click **Launch Instance**.
 
 Set the following options:
-- **Name:** `tech508-name-test-sparta-app`
+- **Name:** `tech508-rubaet-test-sparta-app`
 - **AMI (Image):** Ubuntu Server 24.04 LTS
 - **Key Pair:** Select `tech508_rubaet-aws`
 - **Network Settings:** Create a new security group:
   - **Name:** `tech508-name-sparta-app-allow-SSH-HTTP-3000`
   - Allow:
     - **SSH** on port **22** (for connecting)
+    after cick on add security 
     - **HTTP** on port **80** (for website access)
+    - after click on add security
     - **Custom TCP** on port **3000** (to run the app)
 
 Click **Launch Instance**.
@@ -75,7 +103,7 @@ Run the following commands:
 
 ```bash
 # Download the app code from GitHub
-git clone https://github.com/Abz299/tech508-spartaapp.git repo
+git clone https://github.com/rubaet12/sparta.git repo
 
 # Go into the app folder
 cd repo/tech508-spartaapp
@@ -89,6 +117,13 @@ npm start
 
 If successful, your app is running on port `3000`.
 
+**without the port 3000 you will see nginx is successfully installed which means that app is running correctly and should display like this:**
+
+![img_32.png](img_32.png)
+
+**When you add ":3000" at the end of the url link you should see the front page of the app running**
+
+![img_5.png](img_5.png)
 ---
 
 ### Step 5: Check If the App Works
@@ -99,6 +134,7 @@ If successful, your app is running on port `3000`.
    - `http://your-ip:3000` → You’ll see the Sparta app.
    - `http://your-ip:3000/getposts` → Will NOT work yet because we haven’t set up the database.
 
+![img_1.png](img_1.png)
 ---
 
 ## Part 2: Set Up the Backend Database (MongoDB)
@@ -109,12 +145,16 @@ Repeat the process from Step 1, but this time:
 
 - **Name:** `tech508-name-test-sparta-app-db`
 - **AMI (Image):** Ubuntu Server 22.04 LTS
+- click commit changes and scroll down 
 - **Key Pair:** Select `tech508_rubaet-aws`
 - **Network Settings:** Create a new security group:
-  - **Name:** `tech508-name-sparta-app-db-allow-MONGODB`
+  - **Name:** `tech508-rubaet-sparta-app-db-allow-MONGODB`
+  - **Description**`tech508-rubaet-sparta-app-db-allow-MONGODB`
   - Allow:
     - **SSH** on port **22**
+    - Click on add security group rule
     - **Custom TCP** on port **27017** (MongoDB default port)
+    - **Source type put anywhere for the purpose of testing the app. Usually we don't do this in the real world enviroment**
 
 Click **Launch Instance**.
 
@@ -186,6 +226,7 @@ sudo systemctl enable mongod
 sudo systemctl start mongod
 sudo systemctl status mongod  # Should say "active (running)"
 ```
+![img_2.png](img_2.png)
 
 ---
 
@@ -221,6 +262,7 @@ Now go **back to the Sparta App terminal** (Frontend VM) and do the following:
    npm install
    npm start
    ```
+**Should look something like this with the port 3000 running**
 
 ---
 
@@ -231,177 +273,7 @@ Now go **back to the Sparta App terminal** (Frontend VM) and do the following:
 
 Congratulations! Your full app is now live and connected to a remote MongoDB database.
 
-
-### App script 
-```bash
-#!/bin/bash
-
-# Provisioning Script
-# This script sets up a Node.js app with MongoDB and Nginx reverse proxy.
-# It:
-# Updates and upgrades the system
-# Installs Nginx and Node.js
-# Clones the app from GitHub
-# Installs dependencies
-# Starts the app
-# Configures Nginx as a reverse proxy so users don’t need to type :3000
-
-#  Update the package list 
-echo "update..."
-sudo DEBIAN_FRONTEND=noninteractive apt-get update
-echo "update done"
-echo
-
-# Upgrade all installed packages 
-echo "upgrade..."
-sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
-echo "upgrade done"
-echo
-
-#  Install Nginx web server 
-echo "install nginx..."
-sudo DEBIAN_FRONTEND=noninteractive apt install nginx -y
-echo "nginx install complete"
-echo
-
-#  Install Node.js (version 20.x) 
-echo "install node.js..."
-sudo DEBIAN_FRONTEND=noninteractive bash -c "curl -fsSL https://deb.nodesource.com/setup_20.x | bash -" && \
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
-echo "node.js install complete"
-echo
-
-#  Clone the app repository from GitHub 
-echo "cloning git repo..."
-git clone https://github.com/rubaet12/Tech508-sparta-app.git repo
-cd repo
-echo "git cloning complete"
-echo
-
-#  Install Node.js dependencies listed in package.json 
-echo "installing npm dependencies..."
-npm install
-echo "npm install complete"
-echo
-
-#  Set environment variable for MongoDB connection 
-export DB_HOST=mongodb://172.31.31.106:27017/posts
-echo "db_host is set"
-echo
-
-#  Free up port 3000 if another process is using it 
-echo "Checking if anything is already using port 3000..."
-PID=$(sudo lsof -t -i:3000 || true)  # Finds process ID using port 3000
-if [ -n "$PID" ]; then
-  echo "Port 3000 is in use by PID $PID. Killing..."
-  sudo kill $PID  # Stops the process so we can use the port
-  echo "Port 3000 cleared."
-else
-  echo "Port 3000 is free."
-fi
-echo
-
-#  Start the Node.js app in the background 
-npm start &  # Runs the app (usually listens on port 3000)
-
-#  Configure Nginx to act as a reverse proxy 
-echo "Configuring Nginx reverse proxy..."
-
-# Backup the current Nginx default site config file
-sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
-
-# Replace the line that serves static files with a proxy to the Node.js app
-# It replaces: try_files $uri $uri/ =404;
-# With:        proxy_pass http://localhost:3000;
-sudo sed -i 's|try_files.*|proxy_pass http://localhost:3000;|' /etc/nginx/sites-available/default
-
-# Restart Nginx so the changes take effect
-sudo systemctl restart nginx
-echo "Nginx reverse proxy configured and restarted"
-echo
-```
-### Database script 
-```bash
-#!/bin/bash
-
-# MongoDB Provisioning Script
-# This script:
-#  Updates the system
-#  Installs MongoDB 7.0 (specific version)
-#  Imports the MongoDB GPG key
-#  Adds the MongoDB APT repository
-#  Configures MongoDB to allow external connections
-#  Starts and enables the MongoDB service
-
-#  Update the package list 
-echo "update..."
-sudo DEBIAN_FRONTEND=noninteractive apt-get update
-echo "update done"
-echo
-
-#  Upgrade all installed packages 
-echo "upgrade..."
-sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
-echo "upgrade done"
-echo
-
-#  Install required tools: gnupg and curl 
-sudo DEBIAN_FRONTEND=noninteractive apt-get install gnupg curl
-
-# Import MongoDB public GPG key (for verifying packages) 
-echo "import public key"
-curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | \
-gpg --dearmor | sudo tee /usr/share/keyrings/mongodb-server-7.0.gpg > /dev/null
-echo "imported public key"
-echo
-
-# Create APT source list for MongoDB 7.0 
-echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
-
-# Update package list again to include MongoDB repo 
-sudo DEBIAN_FRONTEND=noninteractive apt-get update
-
-# Install MongoDB 7.0 and related tools (specific versions) 
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
-   mongodb-org=7.0.22 \
-   mongodb-org-database=7.0.22 \
-   mongodb-org-server=7.0.22 \
-   mongodb-mongosh \
-   mongodb-org-shell=7.0.22 \
-   mongodb-org-mongos=7.0.22 \
-   mongodb-org-tools=7.0.22 \
-   mongodb-org-database-tools-extra=7.0.22
-
-echo
-echo "Configuring MongoDB to Allow External Connections"
-echo
-
-#  Backup the current MongoDB config file 
-sudo cp /etc/mongod.conf /etc/mongod.conf.bk
-
-#  Update bindIp from 127.0.0.1 to 0.0.0.0 to allow external connections 
-sudo sed -i 's/bindIp: 127.0.0.1/bindIp: 0.0.0.0/' /etc/mongod.conf
-echo "bindIp updated to 0.0.0.0"
-echo
-
-#  Start and enable MongoDB service 
-echo
-echo "Starting MongoDB..."
-echo
-sudo systemctl start mongod
-sudo systemctl enable mongod
-
-echo
-echo "MongoDB provisioned and running"
-echo
-```
-### How do you run it?
-1. Open both your database terminal and app terminal; connected to there respective AWS instances.
-2. nano ./app.sh – copy script in with following control s and control x then run chmod +x app.sh
-3. nano ./database.sh – copy script in with following control s and control x then run chmod +x database.sh
-4. run database via ./database.sh the run app via ./app.sh
-
-# Task V: Implement Reverse Proxy (Access App Without :3000)
+![img_4.png](img_4.png)
 
 ## What is a Reverse Proxy?
 
@@ -413,76 +285,192 @@ A reverse proxy lets users visit your web app **without needing to type `:3000`*
 This is done by setting up **NGINX** to forward all traffic from port `80` (the default web browser port) to port `3000` (where your app runs).
 
 ---
+## Implement Reverse Proxy (Access App Without :3000)
 
-## Step-by-Step Instructions
-
-### 1. Add Reverse Proxy Configuration to `app.sh`
-
-Connect to your **Sparta App instance** using Git Bash and open your `app.sh` script:
-
+### App script 
 ```bash
-nano app.sh
-```
+ #!/bin/bash
 
-Scroll to the very **end of the file** and paste the following code:
+# What this script does (in plain English):
+# - Updates the server and installs NGINX (the web server).
+# - Turns NGINX into a "reverse proxy" that forwards port 80 → 3000.
+# - Installs Node.js 20.
+# - Downloads the app code, enters the app folder, and sets DB_HOST.
+# - Installs NPM packages.
+# - Installs PM2 and starts the app in the background so it keeps running.
+#
+# You can run this with:  bash app.sh
+# (Code below stays exactly the same; only these comments explain it.)
 
-```bash
-# Set up NGINX Reverse Proxy
-sudo sh -c 'cat > /etc/nginx/sites-available/tech508-rubaet-test-sparta-app' <<EOF
-server {
-    listen 80;
-    server_name YOUR_PUBLIC_APP_IP;  # Replace this with your actual public IP address
 
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade \$http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_set_header Host \$host;
-        proxy_cache_bypass \$http_upgrade;
-    }
-}
-EOF
+# Provision (basic setup logs so you can see progress)
+echo "update..."
+sudo DEBIAN_FRONTEND=noninteractive apt-get update
+echo "update done"
+echo
 
-# Remove any default or old site configs
-sudo rm -f /etc/nginx/sites-enabled/default
-sudo rm -f /etc/nginx/sites-enabled/tech508-rubaet-test-sparta-app
+echo "upgrade..."
+sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
+echo "upgrade done"
+echo
 
-# Enable the new reverse proxy config
-sudo ln -s /etc/nginx/sites-available/tech508-rubaet-test-sparta-app /etc/nginx/sites-enabled/
+# Install NGINX (we’ll use it as the reverse proxy)
+echo "install ngnix..."
+sudo DEBIAN_FRONTEND=noninteractive apt install nginx -y
+echo "nginx install complete"
+echo
 
-# Test NGINX configuration for errors
-sudo nginx -t
+# Keep a backup of the default NGINX site config (handy if you need to undo)
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
 
-# Restart NGINX to apply the new settings
+# Change the default site so every request on port 80 is forwarded to the app on port 3000
+sudo sed -i '/^\s*try_files/c\        proxy_pass http://localhost:3000;' /etc/nginx/sites-available/default
+
+# Apply the NGINX change
 sudo systemctl restart nginx
+
+# Install Node.js 20 from NodeSource, then the nodejs package
+echo "install node.js..."
+sudo DEBIAN_FRONTEND=noninteractive bash -c "curl -fsSL https://deb.nodesource.com/setup_20.x | bash -" && \
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
+echo "node.js install complete"
+echo
+
+# Pull down your app code into a folder named "repos"
+echo "cloning git..."
+git clone https://github.com/rubaet12/sparta.git repos
+echo "git cloning complete"
+echo
+
+# Move into the app folder (where package.json lives)
+echo
+cd repos/app
+echo "changed to app directory"
+
+# Set the database connection for this shell
+# NOTE: This uses a PUBLIC IP. In AWS, it’s usually better to use the DB’s PRIVATE IP (172.31.x.x).
+echo
+export DB_HOST=mongodb://54.246.53.210:27017/posts
+echo "DB_HOST is set"
+echo
+
+# Install Node dependencies (this may also run seed scripts if defined)
+echo "installing npm..."
+npm install
+echo "npm install complete"
+echo
+
+# Install PM2 globally so the app can run in the background and auto-restart
+# If you get a permissions error here, re-run with:  sudo npm install -g pm2
+echo "installing pm2..."
+npm install -g pm2
+echo "pm2 install complete"
+echo
+
+# If a PM2 process with this old name exists, remove it (avoids duplicates on reruns)
+echo "Ensuring pm2 process idempotent"
+pm2 delete sparta-app || true
+echo
+
+# Start the app via PM2 using the "npm start" script and save the process list
+echo "Starting app..."
+pm2 start npm --name "rubaet-manual-sparta-app" -- start
+pm2 save
+echo "App has started in background!"
+echo
+
+# Alternative: run directly with npm in the background (left here as a reference)
+# start npm
+# echo "Starting app..."
+# npm start &
+# echo "App has started in background!"
+#echo
+
+### Database script 
 ```
-
-> Replace `YOUR_PUBLIC_APP_IP` with your **actual app instance public IP** from AWS EC2 (e.g., `3.88.74.100`)
-
----
-
-### 2. Save and Re-run the Script
-
-After adding the reverse proxy section to `app.sh`:
-
-- Press `Ctrl + S` to save
-- Press `Ctrl + X` to exit
-
-Then run your updated script:
-
 ```bash
-./app.sh
+# MongoDB Provisioning Script
+# This script:
+#  Updates the system
+#  Installs MongoDB 7.0 (specific version)
+#  Imports the MongoDB GPG key
+#  Adds the MongoDB APT repository
+#  Configures MongoDB to allow external connections
+#  Starts and enables the MongoDB service
+
+
+#!/bin/bash
+ 
+#Scipt for the database
+ 
+# Update the package list to make sure the latest versions are installed
+echo "update..."
+sudo DEBIAN_FRONTEND=noninteractive apt-get update
+echo "update done"
+echo
+ 
+echo "upgrade..."
+sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
+echo "upgrade done"
+echo
+ 
+sudo DEBIAN_FRONTEND=noninteractive apt-get install gnupg curl
+ 
+echo "import public key"
+curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | \
+gpg --dearmor | sudo tee /usr/share/keyrings/mongodb-server-7.0.gpg > /dev/null
+echo "imported public key"
+echo
+ 
+#create list file
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+ 
+sudo DEBIAN_FRONTEND=noninteractive apt-get update
+ 
+#install mongodb
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
+   mongodb-org=7.0.22 \
+   mongodb-org-database=7.0.22 \
+   mongodb-org-server=7.0.22 \
+   mongodb-mongosh \
+   mongodb-org-shell=7.0.22 \
+   mongodb-org-mongos=7.0.22 \
+   mongodb-org-tools=7.0.22 \
+   mongodb-org-database-tools-extra=7.0.22
+ 
+   echo
+echo " Configuring MongoDB to Allow External Connections"
+echo
+ 
+# Backup existing config
+sudo cp /etc/mongod.conf /etc/mongod.conf.bk
+ 
+# Update bindIp to 0.0.0.0
+sudo sed -i 's/bindIp: 127.0.0.1/bindIp: 0.0.0.0/' /etc/mongod.conf
+echo "bindIp updated to 0.0.0.0"
+echo
+ 
+echo
+echo " Starting MongoDB..."
+echo
+sudo systemctl start mongod
+sudo systemctl enable mongod
+ 
+echo
+echo
+echo " MongoDB provisioned and running "
+echo
 ```
+### How do you run it?
+1. Open both your database terminal and app terminal; connected to there respective AWS instances.
+2. nano ./database.sh – copy script in with following control s and control x then run chmod +x database.sh after type ./database.sh
+3. nano ./app.sh – copy script in with following control s and control x then run chmod +x app.sh after type ./app.sh
+4. run database via ./database.sh the run app via ./app.sh
+5. Make sure you change it to public ip address of the app from the database instance
+6. let it run
 
-This will:
-- Run your frontend app
-- Configure NGINX as a reverse proxy
-- Restart NGINX with the new settings
 
----
-
-### 3. Test in Your Browser
+### Test in Your Browser
 
 1. Copy your **public IPv4 address** from your app EC2 instance
 2. Paste it into your web browser:
@@ -490,6 +478,10 @@ This will:
    http://<your-public-ip>
    ```
 3. You should now see the Sparta App **without needing to type `:3000`**
+
+4. ![img_3.png](img_3.png)
+
+http://34.244.177.145/posts
 
 ---
 
