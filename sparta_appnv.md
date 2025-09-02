@@ -379,14 +379,7 @@ pm2 save
 echo "App has started in background!"
 echo
 
-# Alternative: run directly with npm in the background (left here as a reference)
-# start npm
-# echo "Starting app..."
-# npm start &
-# echo "App has started in background!"
-#echo
 
-### Database script 
 ```
 ```bash
 # MongoDB Provisioning Script

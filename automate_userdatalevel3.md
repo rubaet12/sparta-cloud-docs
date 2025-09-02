@@ -115,6 +115,100 @@ echo
   - **IMPORTANT**: Paste the **private IP** from the **DB instance** into the `export DB_HOST` section of the script
 - **Launch the Instance**
 
+````bash
+#!/bin/bash
+
+# What this script does (in plain English):
+# - Updates the server and installs NGINX (the web server).
+# - Turns NGINX into a "reverse proxy" that forwards port 80 → 3000.
+# - Installs Node.js 20.
+# - Downloads the app code, enters the app folder, and sets DB_HOST.
+# - Installs NPM packages.
+# - Installs PM2 and starts the app in the background so it keeps running.
+#
+# You can run this with:  bash app.sh
+# (Code below stays exactly the same; only these comments explain it.)
+
+
+# Provision (basic setup logs so you can see progress)
+echo "update..."
+sudo DEBIAN_FRONTEND=noninteractive apt-get update
+echo "update done"
+echo
+
+echo "upgrade..."
+sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
+echo "upgrade done"
+echo
+
+# Install NGINX (we’ll use it as the reverse proxy)
+echo "install ngnix..."
+sudo DEBIAN_FRONTEND=noninteractive apt install nginx -y
+echo "nginx install complete"
+echo
+
+# Keep a backup of the default NGINX site config (handy if you need to undo)
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+
+# Change the default site so every request on port 80 is forwarded to the app on port 3000
+sudo sed -i '/^\s*try_files/c\        proxy_pass http://localhost:3000;' /etc/nginx/sites-available/default
+
+# Apply the NGINX change
+sudo systemctl restart nginx
+
+# Install Node.js 20 from NodeSource, then the nodejs package
+echo "install node.js..."
+sudo DEBIAN_FRONTEND=noninteractive bash -c "curl -fsSL https://deb.nodesource.com/setup_20.x | bash -" && \
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
+echo "node.js install complete"
+echo
+
+# Pull down your app code into a folder named "repos"
+echo "cloning git..."
+git clone https://github.com/rubaet12/sparta.git repos
+echo "git cloning complete"
+echo
+
+# Move into the app folder (where package.json lives)
+echo
+cd repos/app
+echo "changed to app directory"
+
+# Set the database connection for this shell
+# NOTE: This uses a PUBLIC IP. In AWS, it’s usually better to use the DB’s PRIVATE IP (172.31.x.x).
+echo
+export DB_HOST=mongodb://54.246.53.210:27017/posts
+echo "DB_HOST is set"
+echo
+
+# Install Node dependencies (this may also run seed scripts if defined)
+echo "installing npm..."
+npm install
+echo "npm install complete"
+echo
+
+# Install PM2 globally so the app can run in the background and auto-restart
+# If you get a permissions error here, re-run with:  sudo npm install -g pm2
+echo "installing pm2..."
+npm install -g pm2
+echo "pm2 install complete"
+echo
+
+# If a PM2 process with this old name exists, remove it (avoids duplicates on reruns)
+echo "Ensuring pm2 process idempotent"
+pm2 delete sparta-app || true
+echo
+
+# Start the app via PM2 using the "npm start" script and save the process list
+echo "Starting app..."
+pm2 start npm --name "rubaet-manual-sparta-app" -- start
+pm2 save
+echo "App has started in background!"
+echo
+
+
+````
+
 ## Connect to App Instance
 ```bash
 # Open Git Bash terminal
