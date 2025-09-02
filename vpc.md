@@ -75,7 +75,7 @@
       - Port range: `27017`
       - Source: Anywhere
 - Launch
-![img_12.png](img_12.png)
+![img_12.png](Images/img_12.png)
 **You will not the public ip**
 
 ---
@@ -160,4 +160,4 @@
 - Paste into browser and test
 
 http://tech508-rubaet-1287589021.eu-west-1.elb.amazonaws.com/
-![img_11.png](img_11.png)
+![img_11.png](Images/img_11.png)

@@ -26,20 +26,81 @@
 - **Advanced Settings**:
   - Scroll to bottom and paste `prov-db.sh` script
 - **Launch the Instance**
+````bash
+# MongoDB Provisioning Script
+# This script:
+#  Updates the system
+#  Installs MongoDB 7.0 (specific version)
+#  Imports the MongoDB GPG key
+#  Adds the MongoDB APT repository
+#  Configures MongoDB to allow external connections
+#  Starts and enables the MongoDB service
 
-## Connect to DB Instance
-```bash
-# Open Git Bash terminal
-cd .ssh
-chmod 400 "tech508-rubaet-aws.pem"
-ssh -i "tech508-rubaet-aws.pem" ubuntu@ec2-3-248-213-130.eu-west-1.compute.amazonaws.com
-sudo systemctl status mongod  # Check if MongoDB is running
-```
 
-- Go back to instance and copy the **private IP**.
+#!/bin/bash
+ 
+#Scipt for the database
+ 
+# Update the package list to make sure the latest versions are installed
+echo "update..."
+sudo DEBIAN_FRONTEND=noninteractive apt-get update
+echo "update done"
+echo
+ 
+echo "upgrade..."
+sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
+echo "upgrade done"
+echo
+ 
+sudo DEBIAN_FRONTEND=noninteractive apt-get install gnupg curl
+ 
+echo "import public key"
+curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | \
+gpg --dearmor | sudo tee /usr/share/keyrings/mongodb-server-7.0.gpg > /dev/null
+echo "imported public key"
+echo
+ 
+#create list file
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+ 
+sudo DEBIAN_FRONTEND=noninteractive apt-get update
+ 
+#install mongodb
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
+   mongodb-org=7.0.22 \
+   mongodb-org-database=7.0.22 \
+   mongodb-org-server=7.0.22 \
+   mongodb-mongosh \
+   mongodb-org-shell=7.0.22 \
+   mongodb-org-mongos=7.0.22 \
+   mongodb-org-tools=7.0.22 \
+   mongodb-org-database-tools-extra=7.0.22
+ 
+   echo
+echo " Configuring MongoDB to Allow External Connections"
+echo
+ 
+# Backup existing config
+sudo cp /etc/mongod.conf /etc/mongod.conf.bk
+ 
+# Update bindIp to 0.0.0.0
+sudo sed -i 's/bindIp: 127.0.0.1/bindIp: 0.0.0.0/' /etc/mongod.conf
+echo "bindIp updated to 0.0.0.0"
+echo
+ 
+echo
+echo " Starting MongoDB..."
+echo
+sudo systemctl start mongod
+sudo systemctl enable mongod
+ 
+echo
+echo
+echo " MongoDB provisioned and running "
+echo
 
 ---
-
+````
 ## 2. Launch a New App Instance
 - **Name**: `tech508-rubaet-test-sparta-app`
 - **AMI**: Ubuntu 22.04 LTS
@@ -64,7 +125,7 @@ sudo systemctl status nginx  # Check if NGINX is running
 ```
 **Screenshot of the output in the terminal to check if NGINX is running which is**
 
-![img_7.png](img_7.png)
+![img_7.png](Images/img_7.png)
 
 - Copy **public IP** and paste it into browser (start with `http://`)
 - Append `/posts` to the URL to check functionality
@@ -73,11 +134,11 @@ sudo systemctl status nginx  # Check if NGINX is running
 
 **front page**
 
-![img_5.png](img_5.png)
+![img_5.png](Images/img_5.png)
 
 **posts page**
 
-![img_6.png](img_6.png)
+![img_6.png](Images/img_6.png)
 
 ## 3. Documentation for AMI Creation
 
@@ -132,8 +193,8 @@ pm2 start app.js
    - After click launch instance 
 **Output**
 
-![img_9.png](img_9.png)
+![img_9.png](Images/img_9.png)
 
-![img_8.png](img_8.png)
+![img_8.png](Images/img_8.png)
 - **IMPORTANT**: Make sure to update `DB_HOST` with the actual **private IP** of the **DB instance**
 - Copy **public IP** and check in browser using `http://<public-ip>/posts`

@@ -119,11 +119,11 @@ If successful, your app is running on port `3000`.
 
 **without the port 3000 you will see nginx is successfully installed which means that app is running correctly and should display like this:**
 
-![img_32.png](img_32.png)
+![img_32.png](Images/img_32.png)
 
 **When you add ":3000" at the end of the url link you should see the front page of the app running**
 
-![img_5.png](img_5.png)
+![img_5.png](Images/img_5.png)
 ---
 
 ### Step 5: Check If the App Works
@@ -134,7 +134,7 @@ If successful, your app is running on port `3000`.
    - `http://your-ip:3000` → You’ll see the Sparta app.
    - `http://your-ip:3000/getposts` → Will NOT work yet because we haven’t set up the database.
 
-![img_1.png](img_1.png)
+![img_1.png](Images/img_1.png)
 ---
 
 ## Part 2: Set Up the Backend Database (MongoDB)
@@ -226,7 +226,7 @@ sudo systemctl enable mongod
 sudo systemctl start mongod
 sudo systemctl status mongod  # Should say "active (running)"
 ```
-![img_2.png](img_2.png)
+![img_2.png](Images/img_2.png)
 
 ---
 
@@ -273,7 +273,7 @@ Now go **back to the Sparta App terminal** (Frontend VM) and do the following:
 
 Congratulations! Your full app is now live and connected to a remote MongoDB database.
 
-![img_4.png](img_4.png)
+![img_4.png](Images/img_4.png)
 
 ## What is a Reverse Proxy?
 
@@ -479,7 +479,7 @@ echo
    ```
 3. You should now see the Sparta App **without needing to type `:3000`**
 
-4. ![img_3.png](img_3.png)
+4. ![img_3.png](Images/img_3.png)
 
 http://34.244.177.145/posts
 

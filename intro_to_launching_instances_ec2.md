@@ -1,3 +1,6 @@
+<!-- TOC -->
+* [Cloud and Virtual Machines with AWS](#cloud-and-virtual-machines-with-aws)
+<!-- TOC -->
 # Cloud and Virtual Machines with AWS
 
 1: Login to AWS  
@@ -50,3 +53,4 @@
 48: After pasting, hit enter and you are connected to your virtual machine  
 49: To stop your instance go to the top right on instance state and click stop instance to stop  
 50: If you want to delete your instance click terminate and it will terminate immediately. It can take a few seconds to show up on your dashboard  
+

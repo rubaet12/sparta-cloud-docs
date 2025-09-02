@@ -43,8 +43,8 @@
 9. Click Save
 10. You can check console output to see output
 
-![img_13.png](img_13.png)
-![img_14.png](img_14.png)
+![img_13.png](Images/img_13.png)
+![img_14.png](Images/img_14.png)
 
 ### Testing
 1. From the Dashboard, click the arrow that appears when hovering over the project name
@@ -58,7 +58,7 @@
 7. Click Console Output
    - This will show a log of what happened while the build was running and can be used to check for any issues
 
-![img_15.png](img_15.png)
+![img_15.png](Images/img_15.png)
 
 ## Creating second project in jenkins: (repeat the same steps as above)
 
@@ -75,9 +75,9 @@
 11) click build now.
 12) You can check console output to see output
 
-![img_16.png](img_16.png)
-![img_17.png](img_17.png)
-![img_18.png](img_18.png)
+![img_16.png](Images/img_16.png)
+![img_17.png](Images/img_17.png)
+![img_18.png](Images/img_18.png)
 
 ## link  both project( to run one after other):
  
@@ -91,7 +91,7 @@
 8) you can notice the first build will run and when it is successful the second build will run and you can check it in console output.
 9) you can also what triggered the next job.
 
-![img_19.png](img_19.png)
+![img_19.png](Images/img_19.png)
 
 ## Creating a jenkins key pair:
  
@@ -110,7 +110,7 @@
 13) click allow write access and add key.
 14) You have successfully created jenkins key pairs
 
-![img_20.png](img_20.png)
+![img_20.png](Images/img_20.png)
 
 # Creating Job 1,2 and 3.
 ## creating job 1
@@ -128,7 +128,7 @@
 9) Go to source code management.
 10) Click Git
 11) In the repository URL enter the "SSH url of the github repo"
-![img_21.png](img_21.png)
+![img_21.png](Images/img_21.png)
     You can copy paste from the "codesection" of github repo the URL which SSH.
 12) Under the credential choose add, this will open a separate window, under kind choose "SSH username with private key"
 13) In ID column give the name of key "rubaet-jenkins-to-github-key"
@@ -151,8 +151,8 @@
 27) Click save.
 28) The creation of job 1 is completed.
 
-![img_22.png](img_22.png)
-![img_23.png](img_23.png)
+![img_22.png](Images/img_22.png)
+![img_23.png](Images/img_23.png)
 
 ## Creating a webhook:
  
@@ -181,7 +181,7 @@ How to set up webhook:
     * branch to merge: dev
     * merge strategy: default
     * fast-forward mode: --ff(default)
- ![img_24.png](img_24.png)
+ ![img_24.png](Images/img_24.png)
 
 10) Under Build triggers
     * Choose build after other projects are built
@@ -195,13 +195,13 @@ How to set up webhook:
     * Branches: Branch to push: main
     * target remote name : origin
  
-  ![img_25.png](img_25.png)
+  ![img_25.png](Images/img_25.png)
 14) click save
    
 15) Now click build now
      
 16) You can notice job1 will test and run , then job2 will start.
-![img_26.png](img_26.png)
+![img_26.png](Images/img_26.png)
 
 ## Job 3 creation 
 1) Login to jenkins using credentials and click enter new item
@@ -259,7 +259,7 @@ pm2 start app.js
    - After click launch instance 
 **Output**
 
-![img_9.png](img_9.png)
+![img_9.png](Images/img_9.png)
 5. Perfect the AMI works correctly!
 6. Got to your instance summary of your AMI 
 7. Copy the public DNS
@@ -281,7 +281,7 @@ pm2 start app.js
 8) Because we are connecting the AMI to your gitbash change root to ubuntu
 9) ssh -i "tech508-rubaet-aws.pem" ubuntu@ec2-18-201-112-14.eu-west-1.compute.amazonaws.com
 
-![img_27.png](img_27.png)
+![img_27.png](Images/img_27.png)
 10) Hit ls to check if your folder "repo" exist this folder contains your project file 
 11) If you can't see the "repo" folder then make one 
 12) Go back to your source code on your Shell script 
@@ -291,10 +291,10 @@ pm2 start app.js
 16) To verify this go back to your gitbash and hit ls again. You should see the folder called repo 
 17) Cd into your folder repo and then ls to check if your app content is there
 
-![img_29.png](img_29.png)
+![img_29.png](Images/img_29.png)
 18) Go back to your jenkins 
 
-![img_28.png](img_28.png)
+![img_28.png](Images/img_28.png)
 19) As you can see I have managed to successfully run the code and fixed it.
 20) Go to AWS and go to the instance 
 21) Click on open address remove s from https to be http to see the code output.
@@ -346,7 +346,7 @@ git push origin main
 12) Refresh the provisional page 
 13) You should see changes 
 
-![img_30.png](img_30.png)
+![img_30.png](Images/img_30.png)
 
 **My pipeline is working correctly!**
 
@@ -355,6 +355,6 @@ git push origin main
 2) Drag the file to the image and then on the image name replace it with the image file name .jpg by opening the index.ejs folder 
 3) do the git add and then run job 3 again and refresh the page 
 
-![img_31.png](img_31.png)
+![img_31.png](Images/img_31.png)
 
 

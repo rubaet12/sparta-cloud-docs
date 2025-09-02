@@ -157,7 +157,7 @@ This set of instructions allows for high availability and scalability for the ap
 3. Copy the <font color=darksalmon>DNS name</font> and paste it into a browser
 4. If the app loads, the ASG is working as intended
 5. http://tech508-rubaet-1287589021.eu-west-1.elb.amazonaws.com/
-6. ![img_11.png](img_11.png)
+6. ![img_11.png](Images/img_11.png)
 
 ## Deleting an auto-scaling group
 
