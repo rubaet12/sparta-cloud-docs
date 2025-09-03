@@ -349,10 +349,10 @@ terraform init
 terraform plan 
 terraform apply
 ````
-8) Go to AWS and you will see the intance has been created and you can open the sparta app 
+7) Go to AWS and you will see the intance has been created and you can open the sparta app 
 ![img_36.png](Images/img_36.png)
 ![img_37.png](Images/img_37.png)
-10) Once you are satisfied do ```terraform destroy```
+8) Once you are satisfied do ```terraform destroy```
 
 ## To create and run the app database:
 1) Open Gitbash and cd into your app "github/tech508-test-tf"
@@ -956,4 +956,4 @@ terraform apply
 ![img_51.png](Images/img_51.png)
 21) Security group for db
 ![img_52.png](Images/img_52.png)
-14) Once you are satisfied with the results do the ```terraform destory``` to destroy all the instances created
+22) Once you are satisfied with the results do the ```terraform destory``` to destroy all the instances created

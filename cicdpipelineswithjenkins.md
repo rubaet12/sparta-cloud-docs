@@ -241,10 +241,10 @@ ssh -o StrictHostKeyChecking=no ubuntu@ec2-18-201-112-14.eu-west-1.compute.amazo
 EOF
 ```
 24) Now you have to create an AMI to do this 
-1. Select **app AMI** and launch an instance
-2. **Name**: `tech508-rubaet-jenkins-run-ami`
-3. **Key Pair**: Use your designated key pair
-4. **Security Group**: `tech508-rubaet-sparta-app-SSH`
+- 1. Select **app AMI** and launch an instance
+- 2. **Name**: `tech508-rubaet-jenkins-run-ami`
+- 3. **Key Pair**: Use your designated key pair
+- 4. **Security Group**: `tech508-rubaet-sparta-app-SSH`
    - **Inbound Rules**:
      - SSH (22) from `0.0.0.0/0`
      - HTTP (80) from `0.0.0.0/0`
@@ -259,10 +259,10 @@ pm2 start app.js
    - After click launch instance 
 **Output**
 
-![img_9.png](Images/img_9.png)
-5. Perfect the AMI works correctly!
-6. Got to your instance summary of your AMI 
-7. Copy the public DNS
+ ![img_9.png](Images/img_9.png)
+- 5. Perfect the AMI works correctly!
+- 6. Got to your instance summary of your AMI 
+- 7. Copy the public DNS
 25) go to your code and paste it on your Shell Script your public DNS
 26) Click save and run 
 25) Job 3 Runs successfully. 
@@ -281,7 +281,7 @@ pm2 start app.js
 8) Because we are connecting the AMI to your gitbash change root to ubuntu
 9) ssh -i "tech508-rubaet-aws.pem" ubuntu@ec2-18-201-112-14.eu-west-1.compute.amazonaws.com
 
-![img_27.png](Images/img_27.png)
+ ![img_27.png](Images/img_27.png)
 10) Hit ls to check if your folder "repo" exist this folder contains your project file 
 11) If you can't see the "repo" folder then make one 
 12) Go back to your source code on your Shell script 
@@ -291,10 +291,12 @@ pm2 start app.js
 16) To verify this go back to your gitbash and hit ls again. You should see the folder called repo 
 17) Cd into your folder repo and then ls to check if your app content is there
 
-![img_29.png](Images/img_29.png)
+ ![img_29.png](Images/img_29.png)
+
 18) Go back to your jenkins 
 
-![img_28.png](Images/img_28.png)
+ ![img_28.png](Images/img_28.png)
+
 19) As you can see I have managed to successfully run the code and fixed it.
 20) Go to AWS and go to the instance 
 21) Click on open address remove s from https to be http to see the code output.
