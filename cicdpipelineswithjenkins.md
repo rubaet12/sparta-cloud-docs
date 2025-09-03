@@ -129,7 +129,7 @@
 10) Click Git
 11) In the repository URL enter the "SSH url of the github repo"
 ![img_21.png](Images/img_21.png)
-    You can copy paste from the "codesection" of github repo the URL which SSH.
+    - You can copy paste from the "codesection" of github repo the URL which SSH.
 12) Under the credential choose add, this will open a separate window, under kind choose "SSH username with private key"
 13) In ID column give the name of key "rubaet-jenkins-to-github-key"
 14) Copy and paste the same in username as well
@@ -348,7 +348,7 @@ git push origin main
 
 ![img_30.png](Images/img_30.png)
 
-**My pipeline is working correctly!**
+- **My pipeline is working correctly!**
 
 ## How to change the images
 1) Very easy! Open visual code studio on to your github folder 
