@@ -281,7 +281,8 @@ pm2 start app.js
 8) Because we are connecting the AMI to your gitbash change root to ubuntu
 9) ssh -i "tech508-rubaet-aws.pem" ubuntu@ec2-18-201-112-14.eu-west-1.compute.amazonaws.com
 
- ![img_27.png](Images/img_27.png)
+- ![img_27.png](Images/img_27.png)
+
 10) Hit ls to check if your folder "repo" exist this folder contains your project file 
 11) If you can't see the "repo" folder then make one 
 12) Go back to your source code on your Shell script 
