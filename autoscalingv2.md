@@ -72,15 +72,15 @@ This set of instructions allows for high availability and scalability for the ap
 
 ### Creating a launch template
 
-1. In the EC2 sidebar, go to <font color=darkseagreen>Instances</font> > <font color=darkseagreen>Launch Templates</font>
-2. In the top right-hand corner, click <font color=orange>Create launch template</font>
+1. In the EC2 sidebar, go to Instances Launch Templates
+2. In the top right-hand corner, click Create launch template
 3. Give the template a descriptive name using the standard naming convention
    - It should start with `tech508-rubaet`
-4. (<font color=cadetblue>Optional</font>) Add a description
-5. Under <font color=skyblue>Application and OS Images (Amazon Machine Image)</font>, select <font color=mediumslateblue>My AMIs</font> > <font color=mediumslateblue>Owned by me</font>, then search for the appropriate AMI
-6. Select `t3.micro` from the <font color=skyblue>Instance Type</font> drop-down
-7. Select the correct key pair from the <font color=skyblue>Key pair (login)</font> drop-down
-8. Under <font color=skyblue>Network settings</font>, choose <font color=mediumslateblue>Select existing security group</font>, then search for an appropriate one
+4. (Optional) Add a description
+5. Under Application and OS Images (Amazon Machine Image), select My AMIs> Owned by me, then search for the appropriate AMI
+6. Select `t3.micro` from the Instance Type drop-down
+7. Select the correct key pair from the Key pair (login) drop-down
+8. Under Network settings, choose Select existing security group, then search for an appropriate one
    - For the Sparta app, the security group should allow SSH and HTTP
 9. Paste the script into the User data box under Advanced details which is this:
    ```
@@ -90,74 +90,75 @@ This set of instructions allows for high availability and scalability for the ap
       pm2 start app.js
    ```
    - _To be updated with an option for a database script later_
-10. Click <font color=orange>Create launch template</font> in the <font color=orange>Summary</font> box on the right-hand side
+10. Click Create launch template in the Summary box on the right-hand side
 
 ### Creating an auto-scaling group
 
 #### Choosing a launch template or configuration
 
-1. In the EC2 sidebar, go to <font color=darkseagreen>Auto Scaling</font> > <font color=darkseagreen>Auto Scaling Groups</font>
-2. In the top right-hand corner, click <font color=orange>Create Auto Scaling group</font>
+1. In the EC2 sidebar, go to Auto Scaling Groups
+2. In the top right-hand corner, click Create Auto Scaling group
 3. Give the auto-scaling group (ASG) a descriptive name using the standard naming convention
    - It should start with `tech508-rubaet`
 4. Search for the launch template that VMs in the ASG should be based on
-5. Click <font color=orange>Next</font>
+5. Click Next
 
 #### Choosing instance launch options
 
-1. In the <font color=skyblue>Network</font> box, under <font color=skyblue>Availability Zones and subnets</font>, search for and select the following three options:
+1. In the Network box, under Availability Zones and subnets, search for and select the following three options:
    - DevOpsStudent default 1a
    - DevOpsStudent default 1b
    - DevOpsStudent default 1c
-2. Choose <font color=mediumslateblue>Balanced best effort</font> under <font color=skyblue>Availability Zone distribution</font>
+2. Choose Balanced best effort under Availability Zone distribution
    - This should be selected by default
-3. Click <font color=orange>Next</font>
+3. Click Next
 
 #### Integrating with other services
 
-1.  Select <font color=mediumslateblue>Attach to a new load balancer</font> under <font color=skyblue>Load balancing</font>
+1.  Select Attach to a new load balancer under Load balancing
 2. To create the load balancer, do the following:
-    1. Select <font color=mediumslateblue>Application Load Balancer</font> as the load balancer type
+    1. Select Application Load Balancer as the load balancer type
     2. Set the name to something descriptive that follows the same naming convention as the ASG
-    3. Select <font color=mediumslateblue>Internet-facing</font> as the load balancer scheme
-    4. Create a new target group for default routing under <font color=mediumslateblue>Listeners and routing</font>, and give it a descriptive name
-    5. Under <font color=skyblue>Health Checks</font> tick <font color=mediumslateblue>Turn on Elastic Load Balancing health checks</font>
-    6. Set the <font color=mediumslateblue>Health check grace period</font> to at least 180 seconds
-3. Click <font color=orange>Next</font>
+    3. Select Internet-facing as the load balancer scheme
+    4. Create a new target group for default routing under Listeners and routing, and give it a descriptive name
+    5. Under Health Checks tick Turn on Elastic Load Balancing health checks
+    6. Set the Health check grace period to at least 180 seconds
+3. Click Next
 
 #### Configuring group size and scaling
 
-1. Set the <font color=mediumslateblue>Desired capacity</font> to 2
-2. Set the <font color=mediumslateblue>Min desired capacity</font> and <font color=mediumslateblue>Max desired capacity</font> to 2 and 3, respectively
-3. Select <font color=mediumslateblue>Target tracking scaling policy</font>
-4. Set the <font color=mediumslateblue>Instance warmup</font> to at least 180 seconds
-5. Click <font color=orange>Next</font>
+1. Set the Desired capacity to 2
+2. Set the Min desired capacity and Max desired capacity to 2 and 3, respectively
+3. Select Target tracking scaling policy
+4. Set the Instance warmup to at least 180 seconds
+5. Click Next
 
 #### Adding notifications
 
-1. (<font color=cadetblue>Optional</font>) Set up notifications
-2. Click <font color=orange>Next</font>
+1. (Optional) Set up notifications
+2. Click Next
 
 #### Adding tags
 
 1. Add a Name tag (case sensitive; the key must have initial caps), setting the value to a descriptive name
-2. Click <font color=orange>Next</font>
+2. Click Next
 
 #### Reviewing ASG before creation
 
-1. <font color=crimson>IMPORTANT</font>: Review all details
-2. If anything needs to be changed, click the <font color=deepskyblue>Edit</font> button at the top right of the section that needs changing
+1. IMPORTANT: Review all details
+2. If anything needs to be changed, click the Edit button at the top right of the section that needs changing
     - If necessary, edits *can* be made after creating the ASG
-3. Once everything is correct, click <font color=orange>Create Auto Scaling group</font>
+3. Once everything is correct, click Create Auto Scaling group
 
 ## Checking that the app is functioning
 
-1. In the EC2 sidebar, go to <font color=darkseagreen>Load balancing</font> > <font color=darkseagreen>Load Balancers</font>
+1. In the EC2 sidebar, go to Load balancing> Load Balancers
 2. Select the load balancer
-3. Copy the <font color=darksalmon>DNS name</font> and paste it into a browser
+3. Copy the DNS name and paste it into a browser
 4. If the app loads, the ASG is working as intended
 5. http://tech508-rubaet-1287589021.eu-west-1.elb.amazonaws.com/
-6. ![img_11.png](Images/img_11.png)
+
+![img_11.png](Images/img_11.png)
 
 ## Deleting an auto-scaling group
 
@@ -166,19 +167,19 @@ __The load balancer and terget group must be deleted separately.__
 ### Deleting an ASG
 
 1. From the list of ASGs, select the ASG to be deleted
-2. Click <font color=deepskyblue>Actions</font> > <font color=lightcoral>Delete</font>
+2. Click Actions>Delete
 3. Type "delete" in the box to confirm deletion
-4. Click <font color=orange>Delete</font>
+4. Click Delete
 
 ### Deleting a load balancer
 
 5. From the list of load balancers, select the load balancer to be deleted
-6. Click <font color=deepskyblue>Actions</font> > <font color=lightcoral>Delete load balancer</font>
+6. Click Actions> Delete load balancer 
 7. Type "confirm" in the box to confirm deletion
-8. Click <font color=orange>Delete</font>
+8. Click Delete
 
 ### Deleting a target group
 
 9.  From the list of target groups, select the target group to be deleted
-10. Click <font color=deepskyblue>Actions</font> > <font color=lightcoral>Delete</font>
-11. Click <font color=orange>Delete</font>
+10. Click Actions > Delete
+11. Click Delete

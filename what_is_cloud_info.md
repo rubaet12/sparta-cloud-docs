@@ -303,3 +303,4 @@ The cloud market is dominated by three big players, often called the “Big Thre
 <td>Like the data scientist of cloud — small but powerful.</td>
 </tr>
 </table>
+
