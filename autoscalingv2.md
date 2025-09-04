@@ -1,54 +1,58 @@
-# Auto-scaling with AWS
 
-- [Auto-scaling with AWS](#auto-scaling-with-aws)
-  - [Scaling](#scaling)
-  - [Types of scaling](#types-of-scaling)
-    - [Vertical](#vertical)
-      - [Sizing terminology:](#sizing-terminology)
-    - [Horizontal](#horizontal)
-      - [Sizing terminology:](#sizing-terminology-1)
-  - [Deploying the Sparta app with an AWS auto-scaling group](#deploying-the-sparta-app-with-an-aws-auto-scaling-group)
-    - [Basic overview](#basic-overview)
-    - [Creating a launch template](#creating-a-launch-template)
-    - [Creating an auto-scaling group](#creating-an-auto-scaling-group)
-      - [Choosing a launch template or configuration](#choosing-a-launch-template-or-configuration)
-      - [Choosing instance launch options](#choosing-instance-launch-options)
-      - [Integrating with other services](#integrating-with-other-services)
-      - [Configuring group size and scaling](#configuring-group-size-and-scaling)
-      - [Adding notifications](#adding-notifications)
-      - [Adding tags](#adding-tags)
-      - [Reviewing ASG before creation](#reviewing-asg-before-creation)
-  - [Checking that the app is functioning](#checking-that-the-app-is-functioning)
-  - [Deleting an auto-scaling group](#deleting-an-auto-scaling-group)
-    - [Deleting an ASG](#deleting-an-asg)
-    - [Deleting a load balancer](#deleting-a-load-balancer)
-    - [Deleting a target group](#deleting-a-target-group)
+<!-- TOC -->
+* [Auto-Scaling with AWS](#auto-scaling-with-aws)
+  * [Scaling Overview](#scaling-overview)
+  * [Types of Scaling](#types-of-scaling)
+    * [Vertical Scaling](#vertical-scaling)
+    * [Horizontal Scaling (AWS Preferred Method)](#horizontal-scaling-aws-preferred-method)
+  * [Deploying the Sparta app with an AWS auto-scaling group](#deploying-the-sparta-app-with-an-aws-auto-scaling-group)
+    * [Basic overview](#basic-overview)
+    * [Creating a launch template](#creating-a-launch-template)
+    * [Creating an auto-scaling group](#creating-an-auto-scaling-group)
+      * [Choosing a launch template or configuration](#choosing-a-launch-template-or-configuration)
+      * [Choosing instance launch options](#choosing-instance-launch-options)
+      * [Integrating with other services](#integrating-with-other-services)
+      * [Configuring group size and scaling](#configuring-group-size-and-scaling)
+      * [Adding notifications](#adding-notifications)
+      * [Adding tags](#adding-tags)
+      * [Reviewing ASG before creation](#reviewing-asg-before-creation)
+  * [Checking that the app is functioning](#checking-that-the-app-is-functioning)
+  * [Deleting an auto-scaling group](#deleting-an-auto-scaling-group)
+    * [Deleting an ASG](#deleting-an-asg)
+    * [Deleting a load balancer](#deleting-a-load-balancer)
+    * [Deleting a target group](#deleting-a-target-group)
+<!-- TOC -->
+# Auto-Scaling with AWS
 
+## Scaling Overview
+Scaling is the process of adjusting computing resources to match workload demand. It ensures applications remain responsive and cost-efficient by dynamically increasing or decreasing capacity.
 
-## Scaling
+There are two main types of scaling: **vertical** and **horizontal**.
 
-(diagram to go here: worse method > better method)
+---
 
-## Types of scaling
+## Types of Scaling
 
-### Vertical
+### Vertical Scaling
+Vertical scaling increases the capacity of a single virtual machine (VM) by adding more resources such as CPU, RAM, or storage.
 
-Vertical scaling increases the size of the VM. This can include the CPU, RAM and storage.
-The workload is migrated from a smaller machine to a larger one, after which the smaller machine is removed. Depending on provider, it can be difficult to scale back down using this method.
+The workload is moved from a smaller instance type to a larger one, and the smaller instance is then decommissioned. While effective for boosting performance, scaling down can be more challenging depending on the cloud provider.
 
-#### Sizing terminology:
-- Up (make bigger)
-- Down (make smaller)
+**Sizing terminology:**
+- **Scale up** → add more resources to a single VM  
+- **Scale down** → reduce resources of a single VM  
 
-### Horizontal
+---
 
-(Method used by AWS)
+### Horizontal Scaling (AWS Preferred Method)
+Horizontal scaling increases capacity by adding more instances (VMs) rather than resizing a single one. These instances are typically identical and distributed behind a load balancer.
 
-Horizontal scaling increased number of machines. It makes as many VMs as needed – these are usually identical to the original – up to a specified maximum. When auto-scaling, this method removes excess machines once they are no longer needed. 
+With auto-scaling, AWS automatically adjusts the number of instances to meet demand, adding capacity during peak times and removing unnecessary instances when demand falls.
 
-#### Sizing terminology: 
-- In (remove machines)
-- Out (add machines)
+**Sizing terminology:**
+- **Scale out** → add more instances  
+- **Scale in** → remove instances  
+
 
 
 ## Deploying the Sparta app with an AWS auto-scaling group
@@ -159,6 +163,7 @@ This set of instructions allows for high availability and scalability for the ap
 5. http://tech508-rubaet-1287589021.eu-west-1.elb.amazonaws.com/
 
 ![img_11.png](Images/img_11.png)
+
 
 ## Deleting an auto-scaling group
 
