@@ -140,6 +140,11 @@
 19) Now if you can see your key in GIT on the main page click your name.
 20) Under branches to build : Change "*/dev" 
 21) Tick GitHub hook trigger for GITScm polling
+```
+Install the NodeJS Plugin
+In Jenkins, go to Manage Jenkins → Plugins → Available plugins.
+Search for NodeJS.
+```
 22) Under Build environment Choose "Provide node and npm bin/folder to path"
 23) Choose "nodejs version 20"
 24) click save
