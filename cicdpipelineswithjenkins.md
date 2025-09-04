@@ -144,6 +144,12 @@
 Install the NodeJS Plugin
 In Jenkins, go to Manage Jenkins → Plugins → Available plugins.
 Search for NodeJS.
+Configure NodeJS (Global Tool)
+Go to Manage Jenkins → Tools.
+Scroll to NodeJS installations → click Add NodeJS.
+Give it a name (e.g. nodejs-20).
+Choose the version 20.x from the dropdown.
+Save.
 ```
 22) Under Build environment Choose "Provide node and npm bin/folder to path"
 23) Choose "nodejs version 20"
