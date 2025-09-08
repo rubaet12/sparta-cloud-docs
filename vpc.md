@@ -31,7 +31,7 @@
 
 ## Understanding the concept of vpc: 
 ### A car park analogy can be easily used to explain about vpc as follows:
-![img_58.png](Images/img_58.png)
+![img_69.png](Images/img_69.png)
  - Now lets look at the parking lot here and outside of the parking lot there is a whole world , <span style="color:yellow">aws</span> world lets say.
 
 ![img_59.png](Images/img_59.png)
