@@ -1,3 +1,31 @@
+<!-- TOC -->
+  * [Introduction to VPC.](#introduction-to-vpc)
+  * [Understanding the concept of vpc:](#understanding-the-concept-of-vpc-)
+    * [A car park analogy can be easily used to explain about vpc as follows:](#a-car-park-analogy-can-be-easily-used-to-explain-about-vpc-as-follows)
+      * [Now lets understand in AWS terms](#now-lets-understand-in-aws-terms-)
+      * [Going down one more level inside your VPC, you have **subnets**.](#going-down-one-more-level-inside-your-vpc-you-have-subnets-)
+    * [Internet Gateway and NAT Gateway Explained](#internet-gateway-and-nat-gateway-explained)
+    * [Network Flow Diagram](#network-flow-diagram)
+* [AWS Deployment Steps for `tech508-rubaet`](#aws-deployment-steps-for-tech508-rubaet)
+  * [Part 1 — Create Custom VPC](#part-1--create-custom-vpc)
+    * [1) Log in to AWS](#1-log-in-to-aws)
+    * [2) Open the VPC Service](#2-open-the-vpc-service)
+    * [3) Create VPC (VPC Only)](#3-create-vpc-vpc-only)
+    * [Create Subnets](#create-subnets)
+      * [Public Subnet](#public-subnet)
+      * [Private Subnet](#private-subnet)
+    * [Create Internet Gateway (IGW)](#create-internet-gateway-igw)
+    * [Create Route Table (Public)](#create-route-table-public)
+  * [Part 2 — Launch Database Instance (Private Subnet)](#part-2--launch-database-instance-private-subnet)
+  * [Part 3 — Launch App Instance (Public Subnet)](#part-3--launch-app-instance-public-subnet)
+  * [Part 4 — Auto Scaling & Load Balancer Setup](#part-4--auto-scaling--load-balancer-setup)
+* [Part 5 — Create Auto Scaling Group](#part-5--create-auto-scaling-group)
+  * [Steps Explained](#steps-explained)
+* [Part 6 — Verify Setup](#part-6--verify-setup)
+  * [![img_11.png](Images/img_11.png)](#)
+  * [Why This Part Is Relevant](#why-this-part-is-relevant)
+<!-- TOC -->
+
 ## Introduction to VPC.
 
 - A VPC in AWS is a private, isolated network in the cloud where you can securely run and control your resources.
