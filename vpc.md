@@ -22,7 +22,6 @@
 * [Part 5 — Create Auto Scaling Group](#part-5--create-auto-scaling-group)
   * [Steps Explained](#steps-explained)
 * [Part 6 — Verify Setup](#part-6--verify-setup)
-  * [![img_11.png](Images/img_11.png)](#)
   * [Why This Part Is Relevant](#why-this-part-is-relevant)
 <!-- TOC -->
 
