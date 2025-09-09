@@ -1,5 +1,29 @@
 
-
+<!-- TOC -->
+* [S3 CRUD Methods with AWS CLI](#s3-crud-methods-with-aws-cli)
+* [CRUD Methods in Detail](#crud-methods-in-detail)
+  * [1. What is CRUD?](#1-what-is-crud)
+    * [Why is CRUD important?](#why-is-crud-important)
+    * [Everyday Analogy](#everyday-analogy)
+  * [2. CRUD in Amazon S3](#2-crud-in-amazon-s3)
+    * [How CRUD applies in S3](#how-crud-applies-in-s3)
+    * [2.1 Create in S3](#21-create-in-s3)
+    * [2.2 Read in S3](#22-read-in-s3)
+    * [2.3 Update in S3](#23-update-in-s3)
+    * [2.4 Delete in S3](#24-delete-in-s3)
+  * [3. What Are Ad Hoc Commands?](#3-what-are-ad-hoc-commands)
+    * [Examples of Ad Hoc S3 Commands](#examples-of-ad-hoc-s3-commands)
+    * [Why use Ad Hoc commands?](#why-use-ad-hoc-commands)
+  * [4. Why CRUD + Ad Hoc Matters in S3](#4-why-crud--ad-hoc-matters-in-s3)
+    * [Example Flow in Real Life:](#example-flow-in-real-life)
+  * [Summary](#summary)
+  * [Initial Setup](#initial-setup)
+  * [Creating and Listing a Bucket](#creating-and-listing-a-bucket)
+  * [Uploading Files (Create & Read)](#uploading-files-create--read)
+  * [Downloading and Syncing Files](#downloading-and-syncing-files)
+  * [Deleting Files and Buckets (Delete)](#deleting-files-and-buckets-delete)
+  * [Extra Notes & Troubleshooting](#extra-notes--troubleshooting)
+<!-- TOC -->
 # S3 CRUD Methods with AWS CLI
 
 This guide explains how to perform the basic **CRUD operations** on Amazon S3 (Simple Storage Service) using the AWS Command Line Interface (CLI).  
