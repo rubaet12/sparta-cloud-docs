@@ -1,6 +1,12 @@
 <!-- TOC -->
 * [The manual to setting up the sparta app via AWS](#the-manual-to-setting-up-the-sparta-app-via-aws)
 * [Setting Up a Full Web App Using Two AWS EC2 Instances (Frontend + Backend)](#setting-up-a-full-web-app-using-two-aws-ec2-instances-frontend--backend)
+  * [Why Are We Doing This?](#why-are-we-doing-this)
+  * [What Does the Sparta App Need?](#what-does-the-sparta-app-need)
+    * [Required Tools & Configurations:](#required-tools--configurations)
+      * [Frontend EC2 Instance:](#frontend-ec2-instance)
+      * [Backend EC2 Instance:](#backend-ec2-instance)
+  * [Why Manual First?](#why-manual-first)
   * [Part 1: Set Up the Frontend Application (Sparta App)](#part-1-set-up-the-frontend-application-sparta-app)
     * [Step 1: Launch AWS EC2 Instance for Frontend](#step-1-launch-aws-ec2-instance-for-frontend)
     * [Step 2: Connect to the Frontend VM Using Git Bash](#step-2-connect-to-the-frontend-vm-using-git-bash)
@@ -18,9 +24,8 @@
   * [What is a Reverse Proxy?](#what-is-a-reverse-proxy)
   * [Implement Reverse Proxy (Access App Without :3000)](#implement-reverse-proxy-access-app-without-3000)
     * [App script](#app-script-)
-    * [Database script](#database-script-)
     * [How do you run it?](#how-do-you-run-it)
-    * [Test in Your Browser](#3-test-in-your-browser)
+    * [Test in Your Browser](#test-in-your-browser)
     * [Why This Works](#why-this-works)
 <!-- TOC -->
 
@@ -36,6 +41,55 @@ You will set up **two virtual machines (VMs)** using AWS EC2:
 - One for the **Sparta frontend app**
 - One for the **MongoDB backend database**
 
+---
+
+##  Why Are We Doing This?
+
+This isn’t just about running an app. It’s about **learning how to deploy software properly**, using **manual steps first**, then moving toward automation with **scripts**, **user data**, and **AMIs**.
+
+Think of it like learning to ride a bike:
+
+- First, you go step by step.
+- Then you add speed and control.
+- Eventually, you automate and refine the process.
+
+---
+
+## What Does the Sparta App Need?
+
+You will deploy a **full-stack application** that includes:
+
+- A **frontend app** (user interface)
+- A **MongoDB backend** (database)
+
+### Required Tools & Configurations:
+
+#### Frontend EC2 Instance:
+-  Ubuntu 24.04 LTS
+-  Node.js v20
+-  NGINX (for reverse proxy)
+-  PM2 (to keep the app running)
+-  Git (to clone the repo)
+-  Port 3000 open
+-  Security Group allowing SSH, HTTP, and TCP:3000
+
+#### Backend EC2 Instance:
+-  Ubuntu 22.04 LTS
+-  MongoDB 7.0 or 8.0
+-  Port 27017 open
+-  bindIp set to `0.0.0.0` (for external access)
+-  Security Group allowing SSH and TCP:27017
+
+---
+
+##  Why Manual First?
+
+Before jumping into automation, it’s best to do things **manually** to:
+
+- Understand each step
+- Spot and fix issues
+- Learn how the app works
+- Lay the groundwork for automation
 ---
 
 ## Part 1: Set Up the Frontend Application (Sparta App)
