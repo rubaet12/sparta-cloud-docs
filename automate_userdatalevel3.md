@@ -165,13 +165,13 @@ echo
 
 # Pull down your app code into a folder named "repos"
 echo "cloning git..."
-git clone https://github.com/rubaet12/sparta.git repos
+git clone https://github.com/rubaet12/sparta.git repo
 echo "git cloning complete"
 echo
 
 # Move into the app folder (where package.json lives)
 echo
-cd repos/app
+cd repo/app
 echo "changed to app directory"
 
 # Set the database connection for this shell
